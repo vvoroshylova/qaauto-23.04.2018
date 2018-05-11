@@ -15,22 +15,30 @@ public class LinkedinLoginTest {
             WebDriver webDriver = new FirefoxDriver();
             webDriver.get("http://linkedin.com/");
 
-            String actualLoginPageTitle = webDriver.getTitle();
+        String actualLoginPageTitle = webDriver.getTitle();
 
 
-        Assert.assertEquals(actualLoginPageTitle
+        Assert.assertEquals((actualLoginPageTitle),
                 "LinkedIn: Log In or Sign Up",
                 "Login page Title is wrong");
 
-
-            WebElement loginField = webDriver.findElement (By.id("login-email"));
+        WebElement loginField = webDriver.findElement(By.id("login-email"));
         loginField.sendKeys("vikaposts1@gmail.com");
-
         WebElement passwordField = webDriver.findElement(By.id("login-password"));
-        passwordField.sendKeys("Iamnewhere");
-
+        passwordField.sendKeys("Wrongpassword");
         WebElement signInButton = webDriver.findElement(By.xpath("//input[@id='login-submit']"));
         signInButton.click();
+        sleep ( 3000);
+
+        Assert.assertFalse(webDriver.getPageSource().contains("Home"), "Valid credentials");
+
+
+        loginField = webDriver.findElement (By.id("login-email"));
+       loginField.sendKeys("vikaposts1@gmail.com");
+       passwordField = webDriver.findElement(By.id("login-password"));
+       passwordField.sendKeys("Iamnewhere");
+       signInButton = webDriver.findElement(By.xpath("//input[@id='login-submit']"));
+       signInButton.click();
 
      sleep ( 3000);
 
@@ -42,16 +50,18 @@ public class LinkedinLoginTest {
                 "Sign In button is not Displayed");
 
         Assert.assertEquals(webDriver.getCurrentUrl(),
-                "htpps://www.linkedin.com/feed/",
+                "https://www.linkedin.com/feed/",
                 "Home page url is wrong");
 
-        String actualHomePageTitle = webDriver.get();
+        String actualHomePageTitle = webDriver.getTitle();
 
 Assert.assertTrue(webDriver.getTitle().contains("LinkedIn"),
 "Home page url is wrong.");
 
 Assert.assertNotEquals(actualLoginPageTitle, actualHomePageTitle,
         "Page title did not change after Sign In");
+
+
 
         webDriver.close();
 
