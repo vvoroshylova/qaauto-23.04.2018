@@ -22,11 +22,16 @@ public class LinkedinLoginTest {
                 "LinkedIn: Log In or Sign Up",
                 "Login page Title is wrong");
 
+        WebElement signInButton = webDriver.findElement(By.xpath("//input[@id='login-submit']"));
+        signInButton.click();
+        Assert.assertFalse(signInButton.isEnabled(),
+                "Sign In button is Disabled");
+
         WebElement loginField = webDriver.findElement(By.id("login-email"));
         loginField.sendKeys("vikaposts1@gmail.com");
         WebElement passwordField = webDriver.findElement(By.id("login-password"));
         passwordField.sendKeys("Wrongpassword");
-        WebElement signInButton = webDriver.findElement(By.xpath("//input[@id='login-submit']"));
+        signInButton = webDriver.findElement(By.xpath("//input[@id='login-submit']"));
         signInButton.click();
         sleep ( 3000);
 

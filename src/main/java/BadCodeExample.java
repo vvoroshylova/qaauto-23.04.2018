@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.List;
+
 import static java.lang.Thread.sleep;
 
 public class BadCodeExample {
@@ -25,22 +27,22 @@ public class BadCodeExample {
 
         sleep ( 3000);
 
-//        List<WebElement> searchResults = webDriver.findElements(By.xpath(
-//                "//div[@class='srg']/div[@class='g']"));
-//
-//        System.out.println(searchResults.size());
-//
-//        for (WebElement searchResult : searchResults) {
-//            String searchResultText = searchResult.getText();
-//                        if (searchResultText.contains("Selenium"))
-//            {System.out.println("SearchTerm found!!");}
-//
-//                        System.out.println(searchResultText);
-//
-//        }
+        List<WebElement> searchResults = webDriver.findElements(By.xpath(
+                "//div[@class='srg']/div[@class='g']"));
 
-                sleep ( 5000);
-                                webDriver.close();
+        System.out.println(searchResults.size());
+
+        for (WebElement searchResult : searchResults) {
+            String searchResultText = searchResult.getText();
+                        if (searchResultText.contains("Selenium"))
+            {System.out.println("SearchTerm found!!");}
+
+                        System.out.println(searchResultText);
+
+        }
+
+        sleep(5000);
+        webDriver.close();
 
 
            }
