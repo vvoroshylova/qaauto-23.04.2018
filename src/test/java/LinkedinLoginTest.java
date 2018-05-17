@@ -16,26 +16,20 @@ public class LinkedinLoginTest {
     public void before() {
         webDriver = new FirefoxDriver();
         webDriver.get("http://linkedin.com/");
-
     }
-
     @Test
     public void successfulLoginTest() throws InterruptedException {
-        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage (webDriver);
-
-        String actualLoginPageTitle = webDriver.getTitle();
-
+        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage (webDriver);String actualLoginPageTitle = webDriver.getTitle();
         Assert.assertEquals((actualLoginPageTitle),
                 "LinkedIn: Log In or Sign Up",
                 "Login page Title is wrong");
 
-        linkedinLoginPage.login ("vikaposts1@gmail.com", "Iamnewhere");
+linkedinLoginPage.login ("vikaposts1@gmail.com", "Iamnewhere");
 
-        Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-                "Sign In button is not displayed");
+//        Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
+//                "Sign In button is not displayed");
 
-            sleep ( 3000);
-        Assert.assertEquals(webDriver.getCurrentUrl(),
+           Assert.assertEquals(webDriver.getCurrentUrl(),
                 "https://www.linkedin.com/feed/",
                 "Home page url is wrong");
 
@@ -46,10 +40,7 @@ public class LinkedinLoginTest {
 Assert.assertTrue(webDriver.getTitle().contains("LinkedIn"),
 "Home page url is wrong.");
 
-        webDriver.close();
-
-
-            }
+                    }
 
 @Test
 public void negativeLoginTest() throws InterruptedException {

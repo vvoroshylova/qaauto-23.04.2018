@@ -3,14 +3,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LinkedinLoginPage {
-
     private WebDriver webDriver;
-
     private WebElement loginField;
     private WebElement passwordField;
     private WebElement signInButton;
 
-    public LinkedinLoginPage(WebDriver webDriver) {
+    LinkedinLoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
     private void initElements() {
@@ -20,14 +18,14 @@ public class LinkedinLoginPage {
             }
     public void login(String email, String password) {
         initElements ();
-        loginField.sendKeys ( email );
-        passwordField.sendKeys ( password );
-        signInButton.click ();
+        loginField.sendKeys (email);
+        passwordField.sendKeys (password);
+        signInButton.click();
     }
 
-    public boolean isSignInButtonDisplayed() {
-        return signInButton.isDisplayed ();
-    }
+//    public boolean isSignInButtonDisplayed() {
+//        return signInButton.isDisplayed ();
+//    }
 
     public String getCurrentPageTitle() {
         return webDriver.getTitle ();
