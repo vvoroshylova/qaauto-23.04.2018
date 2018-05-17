@@ -7,8 +7,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static java.lang.Thread.sleep;
-
 public class LinkedinLoginTest {
     WebDriver webDriver;
 
@@ -19,28 +17,22 @@ public class LinkedinLoginTest {
     }
     @Test
     public void successfulLoginTest() throws InterruptedException {
-        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage (webDriver);String actualLoginPageTitle = webDriver.getTitle();
-        Assert.assertEquals((actualLoginPageTitle),
+        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage (webDriver);
+                 Assert.assertEquals(linkedinLoginPage.getCurrentTitle(),
                 "LinkedIn: Log In or Sign Up",
                 "Login page Title is wrong");
+                Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
+                "Sign In button is not displayed");
 
 linkedinLoginPage.login ("vikaposts1@gmail.com", "Iamnewhere");
 
-//        Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-//                "Sign In button is not displayed");
-
-           Assert.assertEquals(webDriver.getCurrentUrl(),
+        LinkedinHomePage linkedinHomePage = new LinkedinHomePage (webDriver);
+        Assert.assertEquals(linkedinHomePage.getCurrentUrl(),
                 "https://www.linkedin.com/feed/",
                 "Home page url is wrong");
-
-
-        String actualHomePageTitle = webDriver.getTitle();
-        Assert.assertNotEquals(actualLoginPageTitle, actualHomePageTitle,
-                "Page title did not change after Sign In");
-Assert.assertTrue(webDriver.getTitle().contains("LinkedIn"),
-"Home page url is wrong.");
-
-                    }
+        Assert.assertTrue (linkedinHomePage.getCurrentTitle().contains ("LinkedIn"),
+                "Home page Title is wrong.");
+        }
 
 @Test
 public void negativeLoginTest() throws InterruptedException {
@@ -51,12 +43,9 @@ public void negativeLoginTest() throws InterruptedException {
             "Login page Title is wrong");
 
     LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage (webDriver);
+    Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
+            "Sign In button is not displayed");
         linkedinLoginPage.login("vikaposts1@gmail.com", "1");
-
-        Assert.assertTrue(linkedinLoginPage.isSignInButtonDisplayed(),
-                "Sign In button is not displayed");
-
-        sleep ( 3000);
 
     String currentPageUrl = webDriver.getCurrentUrl();
     String currentPageTitle = webDriver.getTitle();
