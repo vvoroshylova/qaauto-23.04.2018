@@ -11,22 +11,18 @@ public class LinkedinLoginPage {
 
     LinkedinLoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-        initElements ();
-    }
+            }
 
     private void initElements() {
         emailField = webDriver.findElement ( By.id ( "login-email" ) );
         passwordField = webDriver.findElement ( By.id ( "login-password" ) );
         signInButton = webDriver.findElement ( By.id ( "login-submit" ) );
     }
-
     public void login(String email, String password) {
-
         emailField.sendKeys ( email );
         passwordField.sendKeys ( password );
         signInButton.click ();
     }
-
     public boolean isSignInButtonDisplayed() {
         return signInButton.isDisplayed ();
     }
