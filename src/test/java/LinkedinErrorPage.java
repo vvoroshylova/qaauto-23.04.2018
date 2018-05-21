@@ -3,11 +3,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LinkedinErrorPage {
-    WebDriver webDriver;
-    WebElement errorMessage;
+    private WebDriver webDriver;
+    private WebElement errorMessage;
+
     public LinkedinErrorPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-        errorElement();
+        initElements();
     }
     public String getCurrentUrl() {
         return webDriver.getCurrentUrl();
@@ -17,15 +18,19 @@ public class LinkedinErrorPage {
         return webDriver.getTitle();
     }
 
-    public void errorElement() {
+    private void initElements() {
         errorMessage = webDriver.findElement(By.xpath("//div[@role='alert']"));
+    }
+
+    public String getErrorMessageText() {
+        return errorMessage.getText ();
 
 
         }
 
     }
 
-}
+
 
 
 
