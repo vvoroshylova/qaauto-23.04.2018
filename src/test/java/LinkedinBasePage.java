@@ -8,10 +8,10 @@ public class LinkedinBasePage {
     }
 
     public String getCurrentUrl() {
-        return webDriver.getCurrentUrl ();
+        return webDriver.getCurrentUrl();
     }
-    public String getCurrentTitle() {
-        return webDriver.getTitle ();
 
+    public String getCurrentTitle() {
+        return webDriver.getTitle();
     }
-    }
+}

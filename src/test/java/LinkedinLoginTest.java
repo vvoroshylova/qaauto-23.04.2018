@@ -37,8 +37,8 @@ public class LinkedinLoginTest {
         Assert.assertEquals ( linkedinLoginPage.getCurrentTitle (),
                 "LinkedIn: Log In or Sign Up",
                 "Login page Title is wrong" );
-//        Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
-//                "Sign In button is not displayed" );
+        Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
+                "Sign In button is not displayed" );
 
         linkedinLoginPage.login (email, password);
 
@@ -62,7 +62,7 @@ public class LinkedinLoginTest {
         Assert.assertTrue ( linkedinLoginSubmitPage.isPageLoaded (),
                 "Login-Submit page is not loaded.");
         Assert.assertEquals (linkedinLoginSubmitPage.getErrorMessageText (),
-                "",
+                "There were one or more errors in your submission. Please correct the marked fields below.",
         "Error message text is incorrect.");
                     }
 
@@ -82,13 +82,13 @@ public class LinkedinLoginTest {
                 "Login page Title is wrong" );
         linkedinLoginPage = new LinkedinLoginPage ( webDriver );
         linkedinLoginPage.login ( "test@test", "Iamnewhere" );
-        LinkedinErrorPage linkedinErrorPage = new LinkedinErrorPage ( webDriver );
-        Assert.assertEquals ( linkedinErrorPage.getCurrentUrl (),
+        LinkedinLoginSubmitPage LinkedinLoginSubmitPage = new LinkedinLoginSubmitPage ( webDriver );
+        Assert.assertEquals ( LinkedinLoginSubmitPage.getCurrentUrl (),
                 "Login-Submit page url is wrong" );
-        Assert.assertEquals ( linkedinErrorPage.getCurrentTitle (),
+        Assert.assertEquals ( LinkedinLoginSubmitPage.getCurrentTitle (),
                 "Sign In to LinkedIn",
                 "Login-Submit page Title is wrong" );
-        Assert.assertEquals ( linkedinErrorPage.getErrorMessageText (),
+        Assert.assertEquals ( LinkedinLoginSubmitPage.getErrorMessageText (),
                 "There were one or more errors in your submission. Please correct the marked fields below.",
                 "Wrong error message text displayed" );
 
