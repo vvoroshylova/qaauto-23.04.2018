@@ -6,8 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static java.lang.Thread.sleep;
-
 public class LinkedinLoginTest {
     WebDriver webDriver;
 
@@ -17,17 +15,11 @@ public class LinkedinLoginTest {
         webDriver.get ( "http://linkedin.com/" );
     }
 
-    @AfterMethod
-    public void after() {
-        webDriver.close ();
-    }
-
-
     @DataProvider
     public Object[][] validDataProvider() {
         return new Object[][]{
                 { "vikaposts1@gmail.com", "Iamnewhere" },
-               // { "VIKAPOSTS1@GMAIL.COM", "Iamnewhere" },
+                { "VIKAPOSTS1@GMAIL.COM", "Iamnewhere" },
         };
     }
 
@@ -39,9 +31,7 @@ public class LinkedinLoginTest {
                 "Login page Title is wrong" );
         Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
                 "Sign In button is not displayed" );
-
         linkedinLoginPage.login (email, password);
-
         LinkedinHomePage linkedinHomePage = new LinkedinHomePage ( webDriver );
         Assert.assertEquals ( linkedinHomePage.getCurrentUrl (),
                 "https://www.linkedin.com/feed/",
@@ -50,14 +40,22 @@ public class LinkedinLoginTest {
                 "Home page Title is wrong." );
     }
 
-    @Test
-    public void negativeReturnedToLoginSubmitTest() throws InterruptedException {
+    @DataProvider
+    public Object[][] incorrectValuesDataProvider() {
+        return new Object[][]{
+                { "vikaposts1@gmail.com", "wrongpassword" },
+                { "wrong@email", "Iamnewhere" },
+        };
+    }
+    @Test (dataProvider="incorrectValuesDataProvider")
+    public void negativeReturnedToLoginSubmitTest(String email, String password) {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage ( webDriver );
+        Assert.assertEquals ( linkedinLoginPage.getCurrentTitle (),
+                "LinkedIn: Log In or Sign Up",
+                "Login page Title is wrong" );
         Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
                 "Sign In button is not displayed" );
-        linkedinLoginPage.login ( "vikaposts1@gmail.com", "1" );
-
-        sleep (3000);
+        linkedinLoginPage.login (email, password );
         LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage ( webDriver );
         Assert.assertTrue ( linkedinLoginSubmitPage.isPageLoaded (),
                 "Login-Submit page is not loaded.");
@@ -66,32 +64,24 @@ public class LinkedinLoginTest {
         "Error message text is incorrect.");
                     }
 
-    @Test
-    public void negativeLoginEmptyFieldsTest() throws InterruptedException {
-        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage ( webDriver );
-        linkedinLoginPage.login ( "", "" );
+    @DataProvider
+    public Object[][] emptyValuesDataProvider() {
+        return new Object[][]{
+                { "", "" },
+                { "", "Iamnewhere" },
+                { "vikaposts1@gmail.com", "" },
+        };
+    }
+    @Test(dataProvider = "emptyValuesDataProvider")
+    public void loginWithEmptyUsernameAndPassword(String emptyEmail, String emptyPassword)  {
+        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
+        linkedinLoginPage.login(emptyEmail, emptyPassword);
         Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
                 "Sign In button is not displayed" );
     }
-
-    @Test
-    public void negativeLoginWrongEmailTest() throws InterruptedException {
-        LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage ( webDriver );
-        Assert.assertEquals ( linkedinLoginPage.getCurrentTitle (),
-                "LinkedIn: Log In or Sign Up",
-                "Login page Title is wrong" );
-        linkedinLoginPage = new LinkedinLoginPage ( webDriver );
-        linkedinLoginPage.login ( "test@test", "Iamnewhere" );
-        LinkedinLoginSubmitPage LinkedinLoginSubmitPage = new LinkedinLoginSubmitPage ( webDriver );
-        Assert.assertEquals ( LinkedinLoginSubmitPage.getCurrentUrl (),
-                "Login-Submit page url is wrong" );
-        Assert.assertEquals ( LinkedinLoginSubmitPage.getCurrentTitle (),
-                "Sign In to LinkedIn",
-                "Login-Submit page Title is wrong" );
-        Assert.assertEquals ( LinkedinLoginSubmitPage.getErrorMessageText (),
-                "There were one or more errors in your submission. Please correct the marked fields below.",
-                "Wrong error message text displayed" );
-
+    @AfterMethod
+    public void after() {
+        webDriver.close ();
     }
 }
 
