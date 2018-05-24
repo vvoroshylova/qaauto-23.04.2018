@@ -31,9 +31,11 @@ public class LinkedinLoginTest {
                 "Login page Title is wrong" );
         Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
                 "Sign In button is not displayed" );
-        linkedinLoginPage.login (email, password);
-        LinkedinHomePage linkedinHomePage = new LinkedinHomePage ( webDriver );
-        Assert.assertEquals ( linkedinHomePage.getCurrentUrl (),
+
+
+        LinkedinHomePage linkedinHomePage = linkedinLoginPage.login (email, password);
+
+                Assert.assertEquals ( linkedinHomePage.getCurrentUrl (),
                 "https://www.linkedin.com/feed/",
                 "Home page url is wrong" );
         Assert.assertTrue ( linkedinHomePage.getCurrentTitle ().contains ( "LinkedIn" ),
@@ -41,13 +43,14 @@ public class LinkedinLoginTest {
     }
 
     @DataProvider
-    public Object[][] incorrectValuesDataProvider() {
+    public Object[][] invalidDataProvider() {
         return new Object[][]{
-                { "vikaposts1@gmail.com", "wrongpassword" },
-                { "wrong@email", "Iamnewhere" },
+                {"vikaposts1@gmail.com", "wrongpassword" },
+                {"wrong@email", "Iamnewhere" },
+                {"wrong@email", "wrongpassword"}
         };
     }
-    @Test (dataProvider="incorrectValuesDataProvider")
+    @Test (dataProvider="invalidDataProvider")
     public void negativeReturnedToLoginSubmitTest(String email, String password) {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage ( webDriver );
         Assert.assertEquals ( linkedinLoginPage.getCurrentTitle (),
@@ -65,17 +68,17 @@ public class LinkedinLoginTest {
                     }
 
     @DataProvider
-    public Object[][] emptyValuesDataProvider() {
+    public Object[][] emptyDataProvider() {
         return new Object[][]{
                 { "", "" },
                 { "", "Iamnewhere" },
                 { "vikaposts1@gmail.com", "" },
         };
     }
-    @Test(dataProvider = "emptyValuesDataProvider")
-    public void loginWithEmptyUsernameAndPassword(String emptyEmail, String emptyPassword)  {
+    @Test(dataProvider = "emptyDataProvider")
+    public void loginWithEmptyUsernameAndPassword(String email, String password)  {
         LinkedinLoginPage linkedinLoginPage = new LinkedinLoginPage(webDriver);
-        linkedinLoginPage.login(emptyEmail, emptyPassword);
+        linkedinLoginPage.login(email, password);
         Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
                 "Sign In button is not displayed" );
     }
