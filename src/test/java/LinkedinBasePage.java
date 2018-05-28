@@ -1,7 +1,7 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LinkedinBasePage {
+public abstract class LinkedinBasePage {
     protected WebDriver webDriver;
     protected WebElement errorMessage;
     protected WebElement emailField;
@@ -21,6 +21,9 @@ public class LinkedinBasePage {
     public String getErrorMessageText() {
         return errorMessage.getText();
     }
+
+
+
 }
 
 

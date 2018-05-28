@@ -19,7 +19,7 @@ public class LinkedinLoginTest {
     public Object[][] validDataProvider() {
         return new Object[][]{
                 { "vikaposts1@gmail.com", "Iamnewhere" },
-                { "VIKAPOSTS1@GMAIL.COM", "Iamnewhere" },
+//                { "VIKAPOSTS1@GMAIL.COM", "Iamnewhere" },
         };
     }
 
@@ -46,8 +46,8 @@ public class LinkedinLoginTest {
     public Object[][] invalidDataProvider() {
         return new Object[][]{
                 {"vikaposts1@gmail.com", "wrongpassword" },
-                {"wrong@email", "Iamnewhere" },
-                {"wrong@email", "wrongpassword"}
+//                {"wrong@email", "Iamnewhere" },
+//                {"wrong@email", "wrongpassword"}
         };
     }
     @Test (dataProvider="invalidDataProvider")
@@ -58,7 +58,7 @@ public class LinkedinLoginTest {
                 "Login page Title is wrong" );
         Assert.assertTrue ( linkedinLoginPage.isSignInButtonDisplayed (),
                 "Sign In button is not displayed" );
-        linkedinLoginPage.login (email, password );
+        linkedinLoginPage.login (email, password);
         LinkedinLoginSubmitPage linkedinLoginSubmitPage = new LinkedinLoginSubmitPage ( webDriver );
         Assert.assertTrue ( linkedinLoginSubmitPage.isPageLoaded (),
                 "Login-Submit page is not loaded.");
