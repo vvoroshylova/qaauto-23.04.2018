@@ -7,10 +7,8 @@ public class LinkedinLoginPage extends LinkedinBasePage {
 
     @FindBy(id = "login-email")
     private WebElement emailField;
-
     @FindBy(id = "login-password")
     private WebElement passwordField;
-
     @FindBy(id = "login-submit")
     private WebElement signInButton;
 
@@ -18,18 +16,32 @@ public class LinkedinLoginPage extends LinkedinBasePage {
         super ( webDriver );
         PageFactory.initElements ( webDriver, this );
     }
+    @Override
+    public boolean isPageLoaded() {
+        return signInButton.isDisplayed();
+    }
+    public LinkedinLoginSubmitPage loginWithInvalidData(String userEmail, String userPassword) {
+        emailField.sendKeys(userEmail);
+        passwordField.sendKeys(userPassword);
+        signInButton.click();
+        return PageFactory.initElements(webDriver, LinkedinLoginSubmitPage.class);
+    }
 
-    public LinkedinHomePage login(String email, String password) {
+
+    public <T> T login(String email, String password) {
         emailField.sendKeys ( email );
         passwordField.sendKeys ( password );
         signInButton.click ();
-        return PageFactory.initElements ( webDriver, LinkedinHomePage.class );
+        if (getCurrentUrl ().contains ( "/feed" )) {
+            return (T) new LinkedinHomePage ( webDriver );
+        }
+        if (getCurrentUrl ().contains ( "/login-submit" )) {
+            return (T) new LinkedinLoginSubmitPage ( webDriver );
+        } else {
+            return (T) this;
+        }
     }
-
-        public boolean isSignInButtonDisplayed () {
-            return signInButton.isDisplayed ();
-    }
-    }
+}
 
 
 
