@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,20 +13,24 @@ public class LinkedinLoginPage extends LinkedinBasePage {
     private WebElement passwordField;
     @FindBy(id = "login-submit")
     private WebElement signInButton;
+    @FindBy(xpath = "//*[@class='link-forgot-password']")
+    private WebElement forgotPasswordLink;
 
     public LinkedinLoginPage(WebDriver webDriver) {
         super ( webDriver );
         PageFactory.initElements ( webDriver, this );
     }
+
     @Override
     public boolean isPageLoaded() {
-        return signInButton.isDisplayed();
+        return signInButton.isDisplayed ();
     }
+
     public LinkedinLoginSubmitPage loginWithInvalidData(String userEmail, String userPassword) {
-        emailField.sendKeys(userEmail);
-        passwordField.sendKeys(userPassword);
-        signInButton.click();
-        return PageFactory.initElements(webDriver, LinkedinLoginSubmitPage.class);
+        emailField.sendKeys ( userEmail );
+        passwordField.sendKeys ( userPassword );
+        signInButton.click ();
+        return PageFactory.initElements ( webDriver, LinkedinLoginSubmitPage.class );
     }
 
 
@@ -41,6 +47,12 @@ public class LinkedinLoginPage extends LinkedinBasePage {
             return (T) this;
         }
     }
+
+    public LinkedinRequestPasswordResetPage clickOnForgotPasswordLink() {
+        forgotPasswordLink.click ();
+        return new LinkedinRequestPasswordResetPage ( webDriver );
+    }
+
 }
 
 

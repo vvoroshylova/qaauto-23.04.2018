@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,9 +14,9 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
     @FindBy(xpath = "//a[@class='link-forgot-password']")
     private WebElement forgotPasswordLink;
 
-    public LinkedinForgotPasswordPage clickForgotPasswordLink(){
+    public LinkedinRequestPasswordResetPage clickForgotPasswordLink(){
         forgotPasswordLink.click();
-        return PageFactory.initElements(webDriver, LinkedinForgotPasswordPage.class);
+        return PageFactory.initElements(webDriver, LinkedinRequestPasswordResetPage.class);
     }
 
     public boolean isForgotPasswordLinkDisplayed(){
