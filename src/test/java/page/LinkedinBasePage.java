@@ -29,7 +29,7 @@ public abstract class LinkedinBasePage {
         return webDriver.getTitle();
     }
 
-    abstract boolean isPageLoaded();
+    public abstract boolean isPageLoaded();
 
     public WebElement waitUntilElementIsClickable (WebElement webElement, int timeOutInSeconds){
         WebDriverWait wait = new WebDriverWait(webDriver, timeOutInSeconds);
