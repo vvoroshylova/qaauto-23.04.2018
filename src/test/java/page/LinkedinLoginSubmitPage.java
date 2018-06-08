@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class LinkedinLoginSubmitPage extends LinkedinBasePage {
+public class LinkedinLoginSubmitPage extends LinkedinBasePage {
 
     @FindBy(xpath = "//div[@class='alert error']//strong")
     private WebElement errorMessage;
@@ -26,7 +26,13 @@ public abstract class LinkedinLoginSubmitPage extends LinkedinBasePage {
         super ( webDriver );
         PageFactory.initElements ( webDriver, this );
     }
-            public String getErrorMessageText() {
+
+    @Override
+    boolean isPageLoaded() {
+        return errorMessage.isDisplayed();
+    }
+
+    public String getErrorMessageText() {
             return errorMessage.getText();
 
 
