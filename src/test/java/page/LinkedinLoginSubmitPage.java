@@ -28,7 +28,7 @@ public class LinkedinLoginSubmitPage extends LinkedinBasePage {
     }
 
     @Override
-    boolean isPageLoaded() {
+    public boolean isPageLoaded() {
         return errorMessage.isDisplayed();
     }
 
